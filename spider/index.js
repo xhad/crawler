@@ -1,19 +1,18 @@
 const Crawler = require('../crawler');
 const scrape = require('../scraper');
-const event = require('../lib').event;
+const lib = require('../lib');
 const async = require('async');
+
+const event = lib.event;
+const log = lib.log;
 
 let urls = [];
 let pages = [];
 let tasks = [];
 let errors = [];
 
-let Spider = function (url, options) {
-
-
-}
-
-Spider.prototype.url = function (url) {
+let Spider = function (url, options) { 
+    
     let crawl = new Crawler(url);
     
     event.on('status', status => {
@@ -24,7 +23,6 @@ Spider.prototype.url = function (url) {
 
     event.on('url', url => {
         urls.push(url);
-        console.log(url);
     })
 
     // when a new page is found
@@ -44,10 +42,8 @@ Spider.prototype.url = function (url) {
     })
 
     event.on('task', task => {
-        console.log(task);
+        log(task);
     })
-
-
 }
 
 module.exports = Spider;

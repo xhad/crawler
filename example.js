@@ -1,8 +1,8 @@
 
 
-const Crawlos = require('./index');
+const Spider = require('./index').spider;
 
-let url = 'https://hunter.io/';
-let spider = new Crawlos.spider();
+let url = 'https://www.mcgill.ca';
+let spider = new Spider(url);
 
-spider.url(url);
+

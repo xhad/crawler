@@ -5,47 +5,47 @@ const event = lib.event;
 const regex = {
         email: { 
             type: 'email',
-            regex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            regex: /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi
         },
         phone: {
             type: 'phone number',
-            regex: /^([0-9]( |-)?)?(\(?[0-9]{3}\)?|[0-9]{3})( |-)?([0-9]{3}( |-)?[0-9]{4}|[a-zA-Z0-9]{7})$/
+            regex: /^\d?(?:(?:[\+]?(?:[\d]{1,3}(?:[ ]+|[\-.])))?[(]?(?:[\d]{3})[\-/)]?(?:[ ]+)?)?(?:[a-zA-Z2-9][a-zA-Z0-9 \-.]{6,})(?:(?:[ ]+|[xX]|(i:ext[\.]?)){1,2}(?:[\d]{1,5}))?$/gm
         }
     };
 
 module.exports = function(page) {
 return new Promise((resolve, reject) => {
-    console.log('SCRAPING', page.url);
+    event.emit('task', 'SCRAPING >>> ' + page.url);
     let results = [];
 
-    function escapeRegExp(str) {
-        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/\s/g,'')
+    function escapeRegExp(str, callback) {
+        str.replace(/\s/g,'')
+        re = new RegExp(String.fromCharCode(160), "g");
+        str.replace(re, " ")
+        callback(str);
     }    
 
     function reggie (string, pattern, callback) {
-        // string = 'test@test.com'
-        let match = string.match(pattern.regex);
-        console.log(match);
-        callback(match);
+        let matches = [];
+        matches.push(string.match(pattern.regex));
+        if (matches[0] != null) callback(matches);
     }
 
     function search(page, pattern, callback) {
-        event.emit('task', 'Seaching for ' + pattern.type + ' in ' + page.url)
-        let string = escapeRegExp(page.content);
-        reggie(string, pattern, (result) => {
-            if (result) event.emit('match', 
-                {
-                    page: page.url, 
-                    type: pattern.type,
-                    value: result[0]
-                })
-            else console.log(null);
-        })          
+        event.emit('task', 'SCRAPING FOR >>> ' + pattern.type)
+        escapeRegExp(page.content, (string) => {
+            reggie(string, pattern, (result) => {
+                if (result) 
+                    event.emit('match', 
+                    {
+                        page: page.url, 
+                        type: pattern.type,
+                        found: result[0].length,
+                        value: result[0]
+                    })
+            }) 
+        });         
     }
-
-
-
-
 
     const tasks = [
         function(callback) {
