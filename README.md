@@ -8,7 +8,7 @@ cd crawler
 npm i
 ```
 
-Edit the example.js file or create your own own use case and add the URL of the website you want to Crawl.
+Edit the example.js file or create your own use case and add the URL of the website you want to Crawl.
 
 To add scripts to run on each URL, create a process fork and run it in the Spider after an 'url' event fires. 
 When the crawl has finished, check out the results folder.
