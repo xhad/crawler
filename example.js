@@ -1,9 +1,8 @@
 
 
-const Spider = require('./index').spider;
+const { spider } = require('./index');
 
-// let url = 'https://d376yh3jkryyz6.cloudfront.net';
-let url = 'https://www.sentigence.com';
-let spider = new Spider(url);
+let url = 'https://colorlib.com/etc/cs/01-comming-soon.html';
+spider(url);
 
 

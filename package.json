@@ -4,6 +4,7 @@
   "description": "Indexes a URL",
   "main": "index.js",
   "scripts": {
+    "start": "node example.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lynch",

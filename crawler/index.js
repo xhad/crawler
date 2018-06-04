@@ -4,6 +4,7 @@ const event = require('../lib').event;
 module.exports = function (url) {
     this.crawler = new JsCrawler()
         .configure({
+
             shouldCrawl: function (page) {
                 return url.indexOf(page.match(url)) > -1;
             },
