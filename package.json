@@ -15,7 +15,7 @@
     "js-crawler": "^0.3.16",
     "jscrawler": "^1.0.4",
     "paralleljs": "^0.2.1",
-    "parse-url": "^3.0.2",
+    "parse-url": "^6.0.1",
     "replace": "^1.0.0",
     "website-scraper": "^3.3.3",
     "winston": "^3.0.0",
