@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "^2.1.4",
-    "del": "^3.0.0",
+    "del": "^6.0.0",
     "js-crawler": "^0.3.16",
     "jscrawler": "^1.0.4",
     "paralleljs": "^0.2.1",
